@@ -35,4 +35,17 @@ public class Ejecutivo_Controller {
     }
 
 
+    @PutMapping("update")
+    public ResponseEntity<Ejecutivo_Entity> updateEjecutivo(@RequestBody Ejecutivo_Entity ejecutivo_Entity) {
+        Ejecutivo_Entity update = ejecutivo_Service.updateEjecutivo(ejecutivo_Entity);
+        return ResponseEntity.ok(update);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> deleteEjecutivo(@PathVariable int id) {
+        String delete = ejecutivo_Service.deleteEjecutivo(id);
+        return ResponseEntity.ok(delete);
+    }
+
+
 }

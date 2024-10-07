@@ -22,7 +22,12 @@ public class Cliente_service {
     }
 
     public Cliente_Entity createCliente(Cliente_Entity cliente) {
-        return cliente_repository.save(cliente);
+        if (cliente_repository.findByRut(cliente.getRut()) == null) {
+            return cliente_repository.save(cliente);
+        }
+        else{
+            return null;
+        }
     }
 
     public Cliente_Entity updateCliente(Cliente_Entity cliente) {

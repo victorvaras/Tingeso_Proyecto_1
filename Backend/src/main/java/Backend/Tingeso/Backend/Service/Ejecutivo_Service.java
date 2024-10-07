@@ -13,8 +13,6 @@ public class Ejecutivo_Service {
 
     @Autowired
     private Ejecutivo_Repository ejecutivo_repository;
-    @Autowired
-    private Cliente_Repository cliente_Repository;
 
     public List<Ejecutivo_Entity> getAllEjecutivo(){
         return ejecutivo_repository.findAll();
@@ -25,7 +23,13 @@ public class Ejecutivo_Service {
     }
 
     public Ejecutivo_Entity newEjecutivo(Ejecutivo_Entity ejecutivo){
-        return ejecutivo_repository.save(ejecutivo);
+
+        if(ejecutivo_repository.findByRut(ejecutivo.getRut())==null ){
+            return ejecutivo_repository.save(ejecutivo);
+        }
+        else{
+            return null;
+        }
     }
 
     public Ejecutivo_Entity updateEjecutivo(Ejecutivo_Entity ejecutivo){
@@ -36,7 +40,7 @@ public class Ejecutivo_Service {
 
         if(ejecutivo_repository.existsById(id)){
             try {
-                cliente_Repository.deleteById(id);
+                ejecutivo_repository.deleteById(id);
                 return "Ejecutivo removido con exito";
             }
             catch(Exception e){
