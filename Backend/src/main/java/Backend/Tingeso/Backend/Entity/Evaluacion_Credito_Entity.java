@@ -30,8 +30,17 @@ public class Evaluacion_Credito_Entity {
     //Edad del solicitante
     private boolean R6;
     //Capacidad de ahorro
-    private boolean R7;
+    private String R7;
 
-    //Enlaze real a R7
-    private int id_Capacidad_Ahorro;
+    //Saldo minimo requerido
+    private boolean R71;
+    //Historial de ahorro consistente
+    private boolean R72;
+    //Deposito periodico
+    private boolean R73;
+    //Relacion saldo/años antiguedad
+    private boolean R74;
+    //Retiron recientes
+    private boolean R75;
+
 }
