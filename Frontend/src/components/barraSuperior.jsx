@@ -1,6 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import Button from '@mui/material/Button';
 
 const BarraSuperior = () => {
+    const navigate = useNavigate(); 
+
+    const handleInicio = () => {
+        navigate('/');  
+    };
+
     return (
         <div style={{ 
             margin: "0", 
@@ -14,6 +22,11 @@ const BarraSuperior = () => {
             fontSize: "10px"
         }}>
             <h1>PrestaBanco</h1>
+
+            <button onClick={handleInicio} style={{ margin: "10px", padding: "5px 10px", fontSize: "10px" }}>
+                Inicio
+            </button>
+
         </div>
     );
 };

@@ -120,7 +120,8 @@ const Simulation = () => {
                         <p><strong>Valor de la Cuota:</strong> {cuota}</p>
                         <p><strong>Tasa de Interés Anual:</strong> {tasaInteres}%</p>
                         <p><strong>Monto Deseado:</strong> {monto_deseado}</p>
-                <p><strong>Plazo Deseado:</strong> {plazo_deseado} años</p>
+                        <p><strong>Plazo Deseado:</strong> {plazo_deseado} años</p>
+                       
                     </div>
                 </div>
             )}

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Cliente")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cliente_Entity {
 
     @Id
@@ -18,22 +19,13 @@ public class Cliente_Entity {
     private int rut;
     private String nombre;
     private String apellido;
-    private String correo;
-    private String telefono;
     private String contrasenia;
 
     //Documentacion
-    private String identificacion;
-    private String comprobante_ingresos;
+    @Lob
+    private byte[] identificacion;
+    @Lob
+    private byte[] comprobante_ingresos;
 
-    public Cliente_Entity(int rut, String nombre, String apellido, String correo, String telefono, String contrasenia, String identificacion, String comprobante_ingresos) {
-        this.rut = rut;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.contrasenia = contrasenia;
-        this.identificacion = identificacion;
-        this.comprobante_ingresos = comprobante_ingresos;
-    }
+
 }

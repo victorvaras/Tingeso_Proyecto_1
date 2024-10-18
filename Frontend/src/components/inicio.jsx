@@ -14,10 +14,21 @@ const Inicio = () => {
         navigate('/solicitar-credito'); // Cambiado a navigate()
     };
 
+    const handleRegisterClient = () => {
+        navigate('/registerClient');
+    };
+
+    const handleLoginClient = () => {
+        navigate('/login');
+    };
+
     return (
         <Stack spacing={2} direction="row">
             
             <Button variant="contained" onClick={handleSimularCredito}> Simulacion de credito</Button>
+            <Button variant="contained" onClick={handleRegisterClient}>Registrar nuevo cliente</Button>
+            <Button variant="contained" onClick={handleLoginClient}>Login Cliente</Button>
+            
             
         </Stack>
     );

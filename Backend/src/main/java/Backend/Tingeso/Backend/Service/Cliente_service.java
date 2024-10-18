@@ -22,12 +22,7 @@ public class Cliente_service {
     }
 
     public Cliente_Entity createCliente(Cliente_Entity cliente) {
-        if (cliente_repository.findByRut(cliente.getRut()) == null) {
-            return cliente_repository.save(cliente);
-        }
-        else{
-            return null;
-        }
+        return cliente_repository.save(cliente);
     }
 
     public Cliente_Entity updateCliente(Cliente_Entity cliente) {
@@ -47,6 +42,19 @@ public class Cliente_service {
         }
         else {
             return "Error al eliminar el cliente";
+        }
+    }
+
+
+
+    public int LoginCliente(int rut, String password) {
+        Cliente_Entity cliente = getClienteByRut(rut);
+
+        if(password.equals(cliente.getContrasenia()) && cliente.getRut() == rut) {
+            return 1;
+        }
+        else{
+            return 0;
         }
     }
 
