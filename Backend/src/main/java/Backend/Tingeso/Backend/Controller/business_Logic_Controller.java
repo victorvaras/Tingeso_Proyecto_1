@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/*
 @RestController
 @RequestMapping("/business_logic/")
 public class business_Logic_Controller {
@@ -50,3 +51,4 @@ public class business_Logic_Controller {
         return business_LogicService.validate_R71(monto_solicitado,saldo_cuenta);
     }
 }
+*/

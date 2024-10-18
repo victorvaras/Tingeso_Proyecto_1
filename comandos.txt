@@ -1,0 +1,43 @@
+backend
+- inicializacion proyecto en springBoot
+	https://start.spring.io/
+
+
+front end
+-inicializar proyecto con react
+	npm create vite@latest
+
+instalar dependencias:
+	npm install axios
+	npm install bootstrap
+	npm install react-router-dom
+
+	npm install @mui/material @emotion/react @emotion/styled
+	npm install @mui/icons-material
+
+
+-correr fron end
+	npm install (solo primera vez)
+	npm run dev (para ejecutar en localhost)
+	
+	
+
+
+
+para desplegar en produccion
+
+backend: 
+	apretar maven(lado derecho¿), apretar clean, 
+luego packge(tener desactivado los test arriba), se corre
+el build, queda en carpeta target,
+
+
+front
+	npm ruin build
+	queda en carpeta dist
+
+
+
+
+servidor web
+intalar Nginx 	

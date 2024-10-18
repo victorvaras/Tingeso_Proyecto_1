@@ -13,6 +13,9 @@ public class Simulacion_Credito_Service {
     @Autowired
     private Simulacion_Credito_Repository simulacion_credito_repository;
 
+    @Autowired
+    private Business_Logic_Service business_logic_service;
+
     public List<Simulacion_Credito_Entity> getAllSimulacionCredito() {
         return simulacion_credito_repository.findAll();
     }
@@ -22,6 +25,8 @@ public class Simulacion_Credito_Service {
     }
 
     public Simulacion_Credito_Entity newSimulacionCredito(Simulacion_Credito_Entity simulacion_credito) {
+        int valor_cuota = business_logic_service.monthly_fee_calculation(simulacion_credito);
+        simulacion_credito.setValor_cuota(valor_cuota);
         return simulacion_credito_repository.save(simulacion_credito);
     }
 

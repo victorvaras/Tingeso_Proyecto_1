@@ -22,4 +22,7 @@ public class Simulacion_Credito_Entity {
 
     //Para saber que tipo prestamo se va solicitar
     private int id_Tipo_Prestamo;
+
+    //Valor cuota
+    private int valor_cuota;
 }

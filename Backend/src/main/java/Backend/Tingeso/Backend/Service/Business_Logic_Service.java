@@ -1,21 +1,35 @@
 package Backend.Tingeso.Backend.Service;
 
+import Backend.Tingeso.Backend.Entity.Simulacion_Credito_Entity;
+import Backend.Tingeso.Backend.Entity.Tipo_Prestamo_Entity;
+import Backend.Tingeso.Backend.Repository.Simulacion_Credito_Repository;
+import Backend.Tingeso.Backend.Repository.Tipo_Prestamo_Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class Business_Logic_Service {
 
+    @Autowired
+    Simulacion_Credito_Repository simulacion_credito_repository;
+
+    @Autowired
+    Tipo_Prestamo_Repository tipo_prestamo_repository;
 
     //Calcular cuota mensual de credito hipotecario             //tasa se ingrese en porcentaje ej: 4.5% es 4.5
-    public double monthly_fee_calculation(int capital, double tasa_anual, int anios){
+    public int monthly_fee_calculation(Simulacion_Credito_Entity simulacion){
+
+        Tipo_Prestamo_Entity tipoPrestamo = tipo_prestamo_repository.getById(simulacion.getId_Tipo_Prestamo());
+        int monto_deseado = simulacion.getMonto_deseado();
+        double tasa_anual= tipoPrestamo.getTasa_anual();
+        int anios= simulacion.getPlazo_deseado();
 
         double tasa_mensual = tasa_anual/12/100;
         int plazo = anios * 12;
 
-        double monto = (capital * tasa_mensual * Math.pow((1 + tasa_mensual), plazo)) /
+        double monto = (monto_deseado * tasa_mensual * Math.pow((1 + tasa_mensual), plazo)) /
                         (Math.pow((1 + tasa_mensual), plazo) - 1);
-        System.out.println("tasa mensual: " +tasa_mensual);
-        return monto;
+        return (int) monto;
     }
 
 
