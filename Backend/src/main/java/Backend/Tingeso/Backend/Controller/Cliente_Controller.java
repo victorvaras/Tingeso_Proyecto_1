@@ -27,7 +27,8 @@ public class Cliente_Controller {
             @RequestParam("apellido") String apellido,
             @RequestParam("contrasenia") String contrasenia,
             @RequestParam("identificacion") MultipartFile identificacion,
-            @RequestParam("comprobante_ingresos") MultipartFile comprobanteIngresos) {
+            @RequestParam("comprobante_ingresos") MultipartFile comprobanteIngresos)
+    {
 
         // Crear nueva instancia de Cliente_Entity
         Cliente_Entity nuevoCliente = new Cliente_Entity();

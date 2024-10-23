@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import client from '../services/client';
+import { Navigate } from 'react-router-dom';
 
 
 const UserForm = () => {
+    
     const [formData, setFormData] = useState({
         rut: '',
         nombre: '',
@@ -55,6 +57,7 @@ const UserForm = () => {
 
             alert('Usuario creado con éxito');
             console.log('Respuesta del backend:', response.data);
+            Navigate('/login');
         } catch (error) {
             alert('Error al crear el usuario: ' + (error.response ? error.response.data : error.message));
             console.error('Error:', error);

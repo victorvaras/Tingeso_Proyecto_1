@@ -51,10 +51,10 @@ public class Cliente_service {
         Cliente_Entity cliente = getClienteByRut(rut);
 
         if(password.equals(cliente.getContrasenia()) && cliente.getRut() == rut) {
-            return 1;
+            return cliente.getId_cliente();
         }
         else{
-            return 0;
+            return -1;
         }
     }
 

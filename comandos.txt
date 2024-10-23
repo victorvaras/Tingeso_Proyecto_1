@@ -41,3 +41,9 @@ front
 
 servidor web
 intalar Nginx 	
+
+
+
+
+
+maquina virtual con 4g de ram suficiente

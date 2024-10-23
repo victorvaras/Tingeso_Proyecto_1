@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import client from '../services/client';
 
 const Login = () => {
     const [rut, setRut] = useState('');
     const [password, setPassword] = useState('');
     const [loginStatus, setLoginStatus] = useState(null);
+    const [id_Usuario, setId_Usuario] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        const handleNavigationApplyCredit = () => {
+            navigate('/solicitar-credito');
+        };
         
 
         const rut_client = parseInt(rut) ;
+        
 
         const dataClient = {
             rut: rut_client,
@@ -24,12 +32,17 @@ const Login = () => {
             const response = await client.loginClient(dataClient);
             console.log(response);
 
-            if (response.data === 1) {
+            if (response.data !== -1) {
                 setLoginStatus('Success');
-                alert('Usuario logeado con éxito');
-            } else {
-                setLoginStatus('Failure');
-                alert('Usuario no logeado');
+                setId_Usuario(21)
+                localStorage.setItem('id_Usuario', response.data);
+                handleNavigationApplyCredit();
+
+                //alert('Usuario logeado con éxito');
+
+            } else {    
+                setLoginStatus('Credenciales inválidas');
+                //alert('Usuario no logeado');
             }
         }
         catch (error) {

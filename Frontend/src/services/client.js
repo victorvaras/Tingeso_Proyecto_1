@@ -12,4 +12,8 @@ const loginClient = (data) => {
     return httpClient.post("/cliente/login", data);
 };
 
-export default { createClient, loginClient };
+const getClient = id => {
+    return httpClient.get(`/cliente/${id}`);
+}
+
+export default { createClient, loginClient, getClient };

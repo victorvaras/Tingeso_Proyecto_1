@@ -21,8 +21,9 @@ public class Evaluacion_Credito_service {
         return evaluacion_credito_repository.findById(id).get();
     }
 
-    public Evaluacion_Credito_Entity createEvaluacion_Credito(Evaluacion_Credito_Entity evaluacion_credito){
-        return evaluacion_credito_repository.save(evaluacion_credito);
+    public Evaluacion_Credito_Entity createEvaluacion_Credito(){
+        Evaluacion_Credito_Entity nuevo = new Evaluacion_Credito_Entity();
+        return evaluacion_credito_repository.save(nuevo);
     }
 
 

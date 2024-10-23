@@ -16,11 +16,13 @@ public class Evaluacion_Credito_Controller {
     @Autowired
     Evaluacion_Credito_service evaluacion_credito_service;
 
+
     @PostMapping("nuevo")
-    public ResponseEntity<Evaluacion_Credito_Entity> nuevoEvaluacionCredito(@RequestBody Evaluacion_Credito_Entity evaluacion_credito) {
-        Evaluacion_Credito_Entity nuevo = evaluacion_credito_service.createEvaluacion_Credito(evaluacion_credito);
+    public ResponseEntity<Evaluacion_Credito_Entity> nuevoEvaluacionCredito() {
+        Evaluacion_Credito_Entity nuevo = evaluacion_credito_service.createEvaluacion_Credito();
         return ResponseEntity.ok(nuevo);
     }
+
 
     @GetMapping
     public ResponseEntity<List<Evaluacion_Credito_Entity>> listEvaluacionCredito() {

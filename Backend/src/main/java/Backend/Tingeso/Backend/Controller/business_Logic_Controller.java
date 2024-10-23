@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/*
+
 @RestController
 @RequestMapping("/business_logic/")
 public class business_Logic_Controller {
@@ -15,14 +15,17 @@ public class business_Logic_Controller {
     @Autowired
     private Business_Logic_Service business_LogicService;
 
+    /*
     @GetMapping("monthly/{capital}/{tasa}/{anios}")
     public double monthly_fee_calculation(@PathVariable int capital, @PathVariable double tasa, @PathVariable int anios){
         double monto = business_LogicService.monthly_fee_calculation(capital, tasa,anios);
         return monto;
     }
+    */
 
     @GetMapping("validate_r1/{cuota_mensual}/{ingreso_cliente}")
     public boolean validate_R1(@PathVariable int cuota_mensual, @PathVariable int ingreso_cliente){
+        boolean R1 = business_LogicService.validate_R1(cuota_mensual,ingreso_cliente);
         return business_LogicService.validate_R1(cuota_mensual,ingreso_cliente);
     }
 
@@ -51,4 +54,3 @@ public class business_Logic_Controller {
         return business_LogicService.validate_R71(monto_solicitado,saldo_cuenta);
     }
 }
-*/
