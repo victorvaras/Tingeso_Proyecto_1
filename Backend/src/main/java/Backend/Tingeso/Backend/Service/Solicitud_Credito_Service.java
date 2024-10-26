@@ -5,7 +5,9 @@ import Backend.Tingeso.Backend.Entity.Seguimiento_Solicitud_Entity;
 import Backend.Tingeso.Backend.Entity.Solicitud_Credito_Entity;
 import Backend.Tingeso.Backend.Repository.Evaluacion_Credito_Repository;
 import Backend.Tingeso.Backend.Repository.Solicitud_Credito_Repository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +23,13 @@ public class Solicitud_Credito_Service {
     }
 
     public Solicitud_Credito_Entity getSolicitud_Credito(int id){
-        return solicitud_Credito_Repository.findById(id).get();
+        return solicitud_Credito_Repository.findById(id);
     }
 
     @Autowired
     Evaluacion_Credito_service evaluacion_credito_service;
 
+    @Transactional
     public Solicitud_Credito_Entity nuevaSolicitud_Credito(Solicitud_Credito_Entity solicitud_Credito){
 
         Evaluacion_Credito_Entity evaluacionCredito = evaluacion_credito_service.createEvaluacion_Credito();
@@ -55,6 +58,20 @@ public class Solicitud_Credito_Service {
         else{
             return "Solicitud Credito no encontrado";
         }
+    }
+
+
+    public Solicitud_Credito_Entity updateSolicitud_Credito_SeguimientoSolicitud(int id_evaluacion_credito, int id_seguimiento_solicitud){
+
+        if(solicitud_Credito_Repository.findById(id_evaluacion_credito) != null){
+            Solicitud_Credito_Entity update = solicitud_Credito_Repository.findById(id_evaluacion_credito);
+            update.setId_seguimiento_solicitud(id_seguimiento_solicitud);
+            return solicitud_Credito_Repository.save(update);
+        }
+        else{
+            return null;
+        }
+
     }
 
 }

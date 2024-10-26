@@ -12,4 +12,13 @@ const getApplyCredit = () => {
     return httpClient.get("/solicitud_credito/");
 }
 
-export default { createApllyCredit, getApplyCredit };
+const getApplyCreditById = (id) => {
+    return httpClient.get(`/solicitud_credito/${id}`);
+}
+
+const putApplyCreditSeguimiento = (id_Credit, id_seguimiento) => {
+    return httpClient.put(`/solicitud_credito/cambio_seguiminto_solicitud/${id_Credit}/${id_seguimiento}`);
+}
+
+
+export default { createApllyCredit, getApplyCredit, getApplyCreditById, putApplyCreditSeguimiento };

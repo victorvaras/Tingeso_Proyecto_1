@@ -2,6 +2,7 @@ package Backend.Tingeso.Backend.Service;
 
 import Backend.Tingeso.Backend.Entity.Cliente_Entity;
 import Backend.Tingeso.Backend.Repository.Cliente_Repository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,15 @@ public class Cliente_service {
         return cliente_repository.findAll();
     }
 
+    public Cliente_Entity getClienteById(int id) {
+        return cliente_repository.findById(id);
+    }
+
     public Cliente_Entity getClienteByRut(int rut) {
         return cliente_repository.findByRut(rut);
     }
 
+    @Transactional
     public Cliente_Entity createCliente(Cliente_Entity cliente) {
         return cliente_repository.save(cliente);
     }
@@ -54,7 +60,7 @@ public class Cliente_service {
             return cliente.getId_cliente();
         }
         else{
-            return -1;
+            return 0;
         }
     }
 

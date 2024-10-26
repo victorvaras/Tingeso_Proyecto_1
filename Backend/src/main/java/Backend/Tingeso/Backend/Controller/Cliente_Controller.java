@@ -70,9 +70,10 @@ public class Cliente_Controller {
         return ResponseEntity.ok(clientes);
     }
 
-    @GetMapping("{rut}")
-    public ResponseEntity<Cliente_Entity> getClienteById(@PathVariable int rut) {
-        Cliente_Entity cliente = cliente_service.getClienteByRut(rut);
+    @GetMapping("{id}")
+    public ResponseEntity<Cliente_Entity> getClienteById(@PathVariable int id) {
+
+        Cliente_Entity cliente = cliente_service.getClienteById(id);
         return ResponseEntity.ok(cliente);
     }
 

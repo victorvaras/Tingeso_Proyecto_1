@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Solicitud_Credito_Repository extends JpaRepository<Solicitud_Credito_Entity,Integer> {
+
+    public Solicitud_Credito_Entity findById(int id);
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import applyCredit from '../services/applyCredit';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const ApplyCredit = () => {
 
@@ -95,10 +95,10 @@ const ApplyCredit = () => {
 
             const response = await applyCredit.createApllyCredit(formDataToSend);
             alert('Solicitud de crédito enviada con éxito');
-            onsole.log('Respuesta del backend:', response.data);
+            Navigate('/')
         } catch (error) {
             alert('Error al enviar la solicitud de crédito: ' + (error.response ? error.response.data : error.message));
-            console.error('Error:', error.message);
+           
         }
 
     };

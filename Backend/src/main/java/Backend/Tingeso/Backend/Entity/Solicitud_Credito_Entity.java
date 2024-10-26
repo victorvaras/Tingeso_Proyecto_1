@@ -44,7 +44,7 @@ public class Solicitud_Credito_Entity {
     private int id_evaluacion_credito;
     private int id_seguimiento_solicitud;
 
-
+    private Integer cuota_mensual;
 
 
 }

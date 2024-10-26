@@ -2,14 +2,12 @@ package Backend.Tingeso.Backend.Controller;
 
 import Backend.Tingeso.Backend.Service.Business_Logic_Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/business_logic/")
+@CrossOrigin("*")
 public class business_Logic_Controller {
 
     @Autowired
@@ -23,25 +21,35 @@ public class business_Logic_Controller {
     }
     */
 
-    @GetMapping("validate_r1/{cuota_mensual}/{ingreso_cliente}")
-    public boolean validate_R1(@PathVariable int cuota_mensual, @PathVariable int ingreso_cliente){
-        boolean R1 = business_LogicService.validate_R1(cuota_mensual,ingreso_cliente);
-        return business_LogicService.validate_R1(cuota_mensual,ingreso_cliente);
+    @GetMapping("validate_r1/{ingreso_cliente}/{id_solicitud_Credito}")
+    public boolean validate_R1(@PathVariable int ingreso_cliente, @PathVariable int id_solicitud_Credito){
+        boolean R1 = business_LogicService.validate_R1(ingreso_cliente,id_solicitud_Credito);
+        return business_LogicService.validate_R1(ingreso_cliente,id_solicitud_Credito);
     }
 
-    @GetMapping("validate_r4/{deuda_total}/{ingreso_cliente}")
-    public boolean validate_R4(@PathVariable int deuda_total, @PathVariable int ingreso_cliente){
-        return business_LogicService.validate_R4(deuda_total,ingreso_cliente);
+    @GetMapping("validate_r2/{id_solicitud_Credito}/{requisito}")
+    public boolean validate_R2(@PathVariable int id_solicitud_Credito, @PathVariable boolean requisito){
+        return business_LogicService.validate_R2(id_solicitud_Credito,requisito);
     }
 
-    @GetMapping("validate_r5/{valor_propiedad}/{monto_deseado}/{porcentaje_maximo}")
-    public boolean validate_R5(@PathVariable int valor_propiedad, @PathVariable int monto_deseado, @PathVariable int porcentaje_maximo){
-        return business_LogicService.validate_R5(valor_propiedad,monto_deseado,porcentaje_maximo);
+    @GetMapping("validate_r3/{id_solicitud_Credito}/{requisito}")
+    public boolean validate_R3(@PathVariable int id_solicitud_Credito, @PathVariable boolean requisito){
+        return business_LogicService.validate_R3(id_solicitud_Credito,requisito);
     }
 
-    @GetMapping("validate_r6/{edad_cliente}/{plazo_deseado}")
-    public boolean validate_R6(@PathVariable int edad_cliente, @PathVariable int plazo_deseado){
-        return business_LogicService.validate_R6(edad_cliente,plazo_deseado);
+    @GetMapping("validate_r4/{id_solicitud_Credito}/{ingresos_cliente}/{deuda_total}")
+    public boolean validate_R4(@PathVariable int id_solicitud_Credito,@PathVariable int ingresos_cliente ,@PathVariable int deuda_total){
+        return business_LogicService.validate_R4(id_solicitud_Credito,ingresos_cliente,deuda_total);
+    }
+
+    @GetMapping("validate_r5/{id_solicitud_Credito}/{valor_propiedad}")
+    public boolean validate_R5(@PathVariable int id_solicitud_Credito, @PathVariable int valor_propiedad){
+        return business_LogicService.validate_R5(id_solicitud_Credito, valor_propiedad);
+    }
+
+    @GetMapping("validate_r6/{id_solicitud_Credito}/{edad_cliente}")
+    public boolean validate_R6(@PathVariable int id_solicitud_Credito, @PathVariable int edad_cliente){
+        return business_LogicService.validate_R6(id_solicitud_Credito,edad_cliente);
     }
 
     @GetMapping("validate_r7/{r71}/{r72}/{r73}/{r74}/{r75}")

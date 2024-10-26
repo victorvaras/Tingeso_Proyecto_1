@@ -1,8 +1,12 @@
 package Backend.Tingeso.Backend.Service;
 
+import Backend.Tingeso.Backend.Entity.Evaluacion_Credito_Entity;
 import Backend.Tingeso.Backend.Entity.Simulacion_Credito_Entity;
+import Backend.Tingeso.Backend.Entity.Solicitud_Credito_Entity;
 import Backend.Tingeso.Backend.Entity.Tipo_Prestamo_Entity;
+import Backend.Tingeso.Backend.Repository.Evaluacion_Credito_Repository;
 import Backend.Tingeso.Backend.Repository.Simulacion_Credito_Repository;
+import Backend.Tingeso.Backend.Repository.Solicitud_Credito_Repository;
 import Backend.Tingeso.Backend.Repository.Tipo_Prestamo_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,15 @@ public class Business_Logic_Service {
 
     @Autowired
     Tipo_Prestamo_Repository tipo_prestamo_repository;
+
+    @Autowired
+    Tipo_Prestamo_Service tipo_prestamo_service;
+
+    @Autowired
+    Solicitud_Credito_Repository solicitud_credito_repository;
+
+    @Autowired
+    Evaluacion_Credito_Repository evaluacion_credito_repository;
 
     //Calcular cuota mensual de credito hipotecario             //tasa se ingrese en porcentaje ej: 4.5% es 4.5
     public int monthly_fee_calculation(Simulacion_Credito_Entity simulacion){
@@ -34,31 +47,41 @@ public class Business_Logic_Service {
 
 
     //Validacion de Cuota ingreso
-    public boolean validate_R1(int cuota_mensual,int ingresos_cliente){
+    public boolean validate_R1(int ingresos_cliente, int id_solicitud_Credito){
 
-        int relacion = ((cuota_mensual * 100) / ingresos_cliente);
+        Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
+        int monto_deseado = solicitud.getMonto_deseado();
+        double tasa_anual = tipo_prestamo_service.getTipo_prestamo(solicitud.getId_Tipo_Prestamo()).getTasa_anual();
+
+        double tasa_mensual = tasa_anual/12/100;
+        int plazo = solicitud.getPlazo_deseado();
+
+        int cuota_mensual = (int) ((monto_deseado * tasa_mensual * Math.pow((1 + tasa_mensual), plazo)) /
+                (Math.pow((1 + tasa_mensual), plazo) - 1));
+
+        solicitud.setCuota_mensual(cuota_mensual);
+        solicitud_credito_repository.save(solicitud);
+
+        Evaluacion_Credito_Entity evaluacion = evaluacion_credito_repository.findById(solicitud.getId_evaluacion_credito()).get();
+
+        int relacion =  ((cuota_mensual * 100) / ingresos_cliente);
 
         if(relacion <= 35){
+            evaluacion.setR1(true);
+            evaluacion_credito_repository.save(evaluacion);
             return true;
         }else{
             return false;
         }
     }
 
-    public boolean validate_R4(int deuda_total,int ingresos_cliente){
-        int relacion = (deuda_total * 100) / ingresos_cliente;
-        if(relacion <= 50){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    public boolean validate_R2(int id_solicitud_Credito, boolean requisito){
+        Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
+        Evaluacion_Credito_Entity evaluacion = evaluacion_credito_repository.findById(solicitud.getId_evaluacion_credito()).get();
 
-
-    public boolean validate_R5(int valor_propiedad,int monto_deseado ,int porcentaje_maximo_financiamiento){
-        int porcentaje_financiamiento = (monto_deseado * 100) / valor_propiedad;
-
-        if(porcentaje_financiamiento <= porcentaje_maximo_financiamiento){
+        evaluacion.setR2(requisito);
+        if(requisito){
+            evaluacion_credito_repository.save(evaluacion);
             return true;
         }
         else{
@@ -66,9 +89,67 @@ public class Business_Logic_Service {
         }
     }
 
-    public boolean validate_R6(int edad_cliente, int plazo_deseado){
+    public boolean validate_R3(int id_solicitud_Credito, boolean requisito){
+        Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
+        Evaluacion_Credito_Entity evaluacion = evaluacion_credito_repository.findById(solicitud.getId_evaluacion_credito()).get();
+
+        evaluacion.setR3(requisito);
+        if(requisito){
+            evaluacion_credito_repository.save(evaluacion);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validate_R4(int id_solicitud_Credito,int ingresos_cliente ,int deuda_total){
+        Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
+        Evaluacion_Credito_Entity evaluacion = evaluacion_credito_repository.findById(solicitud.getId_evaluacion_credito()).get();
+
+        int valor_cuota = solicitud.getCuota_mensual();
+
+        int relacion = ((deuda_total + valor_cuota) * 100) / ingresos_cliente;
+        if(relacion <= 50){
+            evaluacion.setR4(true);
+            evaluacion_credito_repository.save(evaluacion);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public boolean validate_R5(int id_solicitud_Credito, int valor_propiedad){
+        Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
+        Tipo_Prestamo_Entity prestamo = tipo_prestamo_repository.findById(solicitud.getId_Tipo_Prestamo()).get();
+        Evaluacion_Credito_Entity evaluacion = evaluacion_credito_repository.findById(solicitud.getId_evaluacion_credito()).get();
+
+        int monto_deseado = solicitud.getMonto_deseado();
+        int porcentaje_maximo_financiamiento = prestamo.getPorcentaje_maximo_financiamiento();
+
+        int porcentaje_financiamiento = (monto_deseado * 100) / valor_propiedad;
+
+        if(porcentaje_financiamiento <= porcentaje_maximo_financiamiento){
+            evaluacion.setR5(true);
+            evaluacion_credito_repository.save(evaluacion);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean validate_R6(int id_solicitud_Credito,int edad_cliente){
+        Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
+        Evaluacion_Credito_Entity evaluacion = evaluacion_credito_repository.findById(solicitud.getId_evaluacion_credito()).get();
+
+        int plazo_deseado = solicitud.getPlazo_deseado();
+
         int edad_final = edad_cliente + plazo_deseado;
         if(edad_final <=70){
+            evaluacion.setR6(true);
+            evaluacion_credito_repository.save(evaluacion);
             return true;
         }
         else{

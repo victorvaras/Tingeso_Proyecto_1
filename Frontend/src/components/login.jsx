@@ -32,17 +32,18 @@ const Login = () => {
             const response = await client.loginClient(dataClient);
             console.log(response);
 
-            if (response.data !== -1) {
+            if (response.data === 0) {
+                
+                setLoginStatus('Credenciales inválidas');
+                
+
+            } else {    
+                
                 setLoginStatus('Success');
                 setId_Usuario(21)
                 localStorage.setItem('id_Usuario', response.data);
                 handleNavigationApplyCredit();
-
-                //alert('Usuario logeado con éxito');
-
-            } else {    
-                setLoginStatus('Credenciales inválidas');
-                //alert('Usuario no logeado');
+               
             }
         }
         catch (error) {
@@ -51,18 +52,6 @@ const Login = () => {
                 }
     };
 
-    const fakeDatabaseCall = (rut, password) => {
-        // This is a mock function to simulate database validation
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                if (rut === 'validRUT' && password === 'validPassword') {
-                    resolve(1);
-                } else {
-                    resolve(0);
-                }
-            }, 1000);
-        });
-    };
 
     return (
         <div className="login-container">

@@ -9,10 +9,11 @@ import Paper from '@mui/material/Paper';
 import applyCredit from '../services/applyCredit';
 import clienteServices from '../services/client';
 import loanType from '../services/loanType';
+import { useNavigate } from 'react-router-dom';
 
-const evaluateRequest = (id) => {
-    console.log(`Evaluando la solicitud con ID: ${id}`);
-};
+
+
+
 
 const CreditRequests = () => {
     const [data, setData] = useState(null);
@@ -21,6 +22,14 @@ const CreditRequests = () => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+
+    const navigate = useNavigate();
+    const evaluateRequest = (id) => {
+        navigate(`/evaluacion-credito/${id}`);
+    };
+
+
 
     // Fetch data for credit requests
     useEffect(() => {
@@ -37,11 +46,13 @@ const CreditRequests = () => {
 
    
     const fetchClientById = (id) => {
+        
+        console.log(id)
         clienteServices.getClient(id)
             .then(response => {
                 setClientNames(prevState => ({
                     ...prevState,
-                    [id]: response.data.nombre,
+                    [id]: response.data.apellido,
                 }));
             })
             .catch(error => {
@@ -70,7 +81,7 @@ const CreditRequests = () => {
             data.forEach(item => {
                 if (!clientNames[item.id_cliente]) {
                     fetchClientById(item.id_cliente);
-                }
+                }                
                 if (!loanTypeData[item.id_Tipo_Prestamo]) {
                     fetchLoanTypeById(item.id_Tipo_Prestamo);
                 }
@@ -87,42 +98,45 @@ const CreditRequests = () => {
     }
 
     return (
-        <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Nombre Cliente</TableCell>
-                        <TableCell>Tipo Crédito</TableCell>
-                        <TableCell>Estado Solicitud</TableCell>
-                        <TableCell>Acciones</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data && data.length > 0 ? (
-                        data.map((item) => (
-                            <TableRow key={item.id_solicitud_credito}>
-                                <TableCell>{item.id_cliente}</TableCell>
-                                <TableCell> {clientNames[item.id_cliente] || 'Cargando nombre...'} </TableCell>
-                                <TableCell>{loanTypeData[item.id_Tipo_Prestamo] || 'Cargando tipo prestamo'}</TableCell>
-                                <TableCell>{item.id_seguimiento_solicitud}</TableCell>
-                                <TableCell>
-                                    <button onClick={() => evaluateRequest(item.id_solicitud_credito)}>
-                                        Evaluar Solicitud
-                                    </button>
+        <div style={{ marginTop: '120px' }}>
+            <h1>Lista de Solicitudes de Crédito</h1>
+            <TableContainer component={Paper} style={{ marginTop: '20px' }}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Nombre Cliente</TableCell>
+                            <TableCell>Tipo Crédito</TableCell>
+                            <TableCell>Estado Solicitud</TableCell>
+                            <TableCell>Acciones</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data && data.length > 0 ? (
+                            data.map((item) => (
+                                <TableRow key={item.id_solicitud_credito}>
+                                    <TableCell>{item.id_solicitud_credito}</TableCell>
+                                    <TableCell>{clientNames[item.id_cliente] || 'Cargando nombre...'}</TableCell>
+                                    <TableCell>{loanTypeData[item.id_Tipo_Prestamo] || 'Cargando tipo prestamo'}</TableCell>
+                                    <TableCell>{item.id_seguimiento_solicitud}</TableCell>
+                                    <TableCell>
+                                        <button onClick={() => evaluateRequest(item.id_solicitud_credito)}>
+                                            Evaluar Solicitud
+                                        </button>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={5} align="center">
+                                    No hay solicitudes disponibles.
                                 </TableCell>
                             </TableRow>
-                        ))
-                    ) : (
-                        <TableRow>
-                            <TableCell colSpan={5} align="center">
-                                No hay solicitudes disponibles.
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
     );
 };
 

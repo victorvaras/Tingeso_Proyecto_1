@@ -11,12 +11,14 @@ import Login from './components/login'
 import ApplyCredit from './components/applyCredit'
 import CreditRequests from './components/CreditRequests'
 import Pruebas from './components/pruebas'
+import CreditEvaluation from './components/creditEvaluation'
+import RequirementsEvaluation from './components/requirementsEvaluation'
 
 function App() {
   return (
     <Router>
       <div className="contaninner">
-        <BarraSuperior> </BarraSuperior>
+      <BarraSuperior> </BarraSuperior>
           <Routes>
             <Route path= "/" element= {<Inicio/>} />
             <Route path= "/simulacion" element= {<Simulation/>} />            
@@ -24,7 +26,9 @@ function App() {
             <Route path= "/login" element= {<Login/>} />
             <Route path= "/solicitar-credito" element= {<ApplyCredit/>} />
             <Route path= "/solicitudes-credito" element= {<CreditRequests/>} />
-            <Route path= "/pruebas" element= {<Pruebas/>} />
+            <Route path= "/pruebas" element= {<Pruebas/>} />            
+            <Route path= "/evaluacion-credito/:id" element= {<CreditEvaluation/>} />
+            <Route path= "/evaluacion-requerimientos/:id" element= {<RequirementsEvaluation/>} />
           </Routes>
 
 
