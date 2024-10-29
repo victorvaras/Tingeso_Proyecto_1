@@ -64,31 +64,12 @@ public class Cliente_Controller {
 
 
 
-@GetMapping
-    public ResponseEntity<List<Cliente_Entity>> getAllClientes() {
-        List<Cliente_Entity> clientes = cliente_service.getClientes();
-        return ResponseEntity.ok(clientes);
-    }
-
     @GetMapping("{id}")
     public ResponseEntity<Cliente_Entity> getClienteById(@PathVariable int id) {
 
         Cliente_Entity cliente = cliente_service.getClienteById(id);
         return ResponseEntity.ok(cliente);
     }
-
-    @PutMapping("update")
-    public ResponseEntity<Cliente_Entity> updateCliente(@RequestBody Cliente_Entity cliente) {
-        Cliente_Entity update= cliente_service.updateCliente(cliente);
-        return ResponseEntity.ok(update);
-    }
-
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteCliente(@PathVariable int id) {
-        String delete = cliente_service.deleteCliente(id);
-        return ResponseEntity.ok(delete);
-    }
-
 
 
     @PostMapping("login")

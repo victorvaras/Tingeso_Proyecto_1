@@ -90,21 +90,9 @@ public class Solicitud_Credito_Controller {
         return ResponseEntity.ok(solicitud);
     }
 
-    @PutMapping("update")
-    public ResponseEntity<Solicitud_Credito_Entity> updateSolicitude(@RequestBody Solicitud_Credito_Entity solicitud){
-        Solicitud_Credito_Entity update = solicitud_credito_service.updateSolicitud_Credito(solicitud);
-        return ResponseEntity.ok(update);
-    }
-
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteSolicitude(@PathVariable int id){
-        String delete = solicitud_credito_service.deleteSolicitud_Credito(id);
-        return ResponseEntity.ok(delete);
-    }
 
     @PutMapping("cambio_seguiminto_solicitud/{id_solicitud}/{id_seguimiento}")
     public ResponseEntity<Solicitud_Credito_Entity> updateSolicitud_Seguimiento(@PathVariable int id_solicitud,@PathVariable int id_seguimiento){
-        System.out.println("aqui");
         Solicitud_Credito_Entity update = solicitud_credito_service.updateSolicitud_Credito_SeguimientoSolicitud(id_solicitud, id_seguimiento);
         return ResponseEntity.ok(update);
     }

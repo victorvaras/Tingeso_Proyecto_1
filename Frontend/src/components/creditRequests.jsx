@@ -25,24 +25,31 @@ const CreditRequests = () => {
 
 
     const navigate = useNavigate();
+
     const evaluateRequest = (id) => {
         navigate(`/evaluacion-credito/${id}`);
     };
 
+    const requestStatus = (id) => {
+        navigate(`/estado-solicitud/${id}`);
+    };
 
 
-    // Fetch data for credit requests
-    useEffect(() => {
-        applyCredit.getApplyCredit()
-            .then(response => {
-                setData(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
-    }, []);
+
+  // Fetch data for credit requests
+useEffect(() => {
+    applyCredit.getApplyCredit()
+        .then(response => {
+            const sortedData = response.data.sort((a, b) => a.id_solicitud_credito - b.id_solicitud_credito);
+            setData(sortedData);
+            setLoading(false);
+        })
+        .catch(error => {
+            setError(error);
+            setLoading(false);
+        });
+}, []);
+
 
    
     const fetchClientById = (id) => {
@@ -122,6 +129,11 @@ const CreditRequests = () => {
                                     <TableCell>
                                         <button onClick={() => evaluateRequest(item.id_solicitud_credito)}>
                                             Evaluar Solicitud
+                                        </button>
+                                    </TableCell>
+                                    <TableCell>
+                                        <button onClick={() => requestStatus(item.id_solicitud_credito)}>
+                                            Revisar estado de solicitud
                                         </button>
                                     </TableCell>
                                 </TableRow>

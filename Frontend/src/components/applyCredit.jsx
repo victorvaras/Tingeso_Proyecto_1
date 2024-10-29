@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import applyCredit from '../services/applyCredit';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ApplyCredit = () => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         id_Tipo_Prestamo: 0,
@@ -43,7 +45,9 @@ const ApplyCredit = () => {
     };
 
 
-        
+    const handleNavigateToInicio = () => {
+        navigate('/');
+    }; 
 
 
 
@@ -61,10 +65,6 @@ const ApplyCredit = () => {
         formDataToSend.append('monto_deseado', loanAmount);
         formDataToSend.append('plazo_deseado', loanTerm);
 
-        alert(formDataToSend.get('id_cliente') + "\n" +
-        formDataToSend.get('id_Tipo_Prestamo') +"\n" +
-        formDataToSend.get('monto_deseado') +"\n" +
-        formDataToSend.get('plazo_deseado'));
 
         if (formData.comprobante_ingresos) {
             formDataToSend.append('comprobante_ingresos', formData.comprobante_ingresos);
@@ -95,7 +95,7 @@ const ApplyCredit = () => {
 
             const response = await applyCredit.createApllyCredit(formDataToSend);
             alert('Solicitud de crédito enviada con éxito');
-            Navigate('/')
+            handleNavigateToInicio();
         } catch (error) {
             alert('Error al enviar la solicitud de crédito: ' + (error.response ? error.response.data : error.message));
            

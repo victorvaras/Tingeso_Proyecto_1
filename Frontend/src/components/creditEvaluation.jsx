@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import applyCredit from '../services/applyCredit';
 
 import '@react-pdf-viewer/core/lib/styles/index.css';
+import { Alert } from '@mui/material';
 
 const CreditEvaluation = () => {
     const { id } = useParams(); // Obtiene el ID de la URL
@@ -57,12 +58,17 @@ const CreditEvaluation = () => {
             console.error('Error fetching data:', error);
         }
     }
+    const handleCreditRequest = () => {
+        navigate('/solicitudes-credito');
+    };
 
     const onClickRechazar = async () => {
         console.log('Rechazar clicked');
         try {
             const cambio = await applyCredit.putApplyCreditSeguimiento(id, 2);
             console.log(cambio);
+            handleCreditRequest();
+            Alert('Solicitud Rechazada');
         } catch (error) {
             console.error('Error fetching data:', error);
         }

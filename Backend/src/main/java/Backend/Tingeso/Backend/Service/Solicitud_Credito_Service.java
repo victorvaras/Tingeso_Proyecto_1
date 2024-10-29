@@ -41,24 +41,6 @@ public class Solicitud_Credito_Service {
         return solicitud_Credito_Repository.save(solicitud_Credito);
     }
 
-    public Solicitud_Credito_Entity updateSolicitud_Credito(Solicitud_Credito_Entity solicitud_Credito){
-        return solicitud_Credito_Repository.save(solicitud_Credito);
-    }
-
-    public String deleteSolicitud_Credito(int id){
-        if(solicitud_Credito_Repository.existsById(id)){
-            try {
-                solicitud_Credito_Repository.deleteById(id);
-                return "Solicitud Credito eliminada";
-            }
-            catch(Exception e){
-                return "Solicitud Credito no eliminada";
-            }
-        }
-        else{
-            return "Solicitud Credito no encontrado";
-        }
-    }
 
 
     public Solicitud_Credito_Entity updateSolicitud_Credito_SeguimientoSolicitud(int id_evaluacion_credito, int id_seguimiento_solicitud){

@@ -17,6 +17,8 @@ public class Evaluacion_Credito_Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_evaluacion_credito;
 
+    private boolean credito_aceptado;
+
     //Relacion cuota ingreso
     private boolean R1;
     //Historial crediticio del cliente

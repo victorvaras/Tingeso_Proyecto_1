@@ -21,4 +21,5 @@ const putApplyCreditSeguimiento = (id_Credit, id_seguimiento) => {
 }
 
 
+
 export default { createApllyCredit, getApplyCredit, getApplyCreditById, putApplyCreditSeguimiento };

@@ -16,13 +16,6 @@ public class Simulacion_Credito_Service {
     @Autowired
     private Business_Logic_Service business_logic_service;
 
-    public List<Simulacion_Credito_Entity> getAllSimulacionCredito() {
-        return simulacion_credito_repository.findAll();
-    }
-
-    public Simulacion_Credito_Entity getSimulacionCreditoById(int id) {
-        return simulacion_credito_repository.findById(id).get();
-    }
 
     public Simulacion_Credito_Entity newSimulacionCredito(Simulacion_Credito_Entity simulacion_credito) {
         int valor_cuota = business_logic_service.monthly_fee_calculation(simulacion_credito);
@@ -30,22 +23,5 @@ public class Simulacion_Credito_Service {
         return simulacion_credito_repository.save(simulacion_credito);
     }
 
-    public Simulacion_Credito_Entity updateSimulacionCredito(Simulacion_Credito_Entity simulacion_credito) {
-        return simulacion_credito_repository.save(simulacion_credito);
-    }
 
-    public String deleteSimulacionCredito(int id) {
-        if (simulacion_credito_repository.existsById(id)) {
-            try {
-                simulacion_credito_repository.deleteById(id);
-                return "Se elimino con exito";
-            }
-            catch (Exception e) {
-                return "No se elimino con exito";
-            }
-        }
-        else{
-            return "Simulacion no encontrada";
-        }
-    }
 }
