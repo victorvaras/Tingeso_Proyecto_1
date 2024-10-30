@@ -1,0 +1,86 @@
+version: "3.8"
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_DB: Tingeso_proyecto1
+      POSTGRES_USER: victorvaraspro
+      POSTGRES_PASSWORD: hola2020
+    ports:
+      - "5432:5432"
+    networks:
+      - backend-network
+
+
+  # Frontend services
+  frontend1:
+    image: victorvaraspro/tingeso-frontend
+    networks:
+      - frontend-network
+
+  frontend2:
+    image: victorvaraspro/tingeso-frontend
+    networks:
+      - frontend-network
+
+  frontend3:
+    image: victorvaraspro/tingeso-frontend
+    networks:
+      - frontend-network
+
+  # Backend services
+  backend1:
+    image: victorvaraspro/tingeso-backend
+    environment:
+      - DB_HOST=postgres_container
+    networks:
+      - backend-network
+
+  backend2:
+    image: victorvaraspro/tingeso-backend
+    environment:
+      - DB_HOST=postgres_container
+    networks:
+      - backend-network
+
+  backend3:
+    image: victorvaraspro/tingeso-backend
+    environment:
+      - DB_HOST=postgres_container
+    networks:
+      - backend-network
+
+  # Nginx for frontend load balancing
+  nginx-frontend:
+    image: nginx:latest
+    ports:
+      - "8070:80"
+    volumes:
+      - ./nginx-frontend.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend1
+      - frontend2
+      - frontend3
+    networks:
+      - frontend-network
+
+  # Nginx for backend load balancing
+  nginx-backend:
+    image: nginx:latest
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./nginx-backend.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
+    networks:
+      - backend-network
+
+networks:
+  frontend-network:
+  backend-network:
