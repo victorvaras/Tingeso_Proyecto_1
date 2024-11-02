@@ -126,7 +126,6 @@ public class Business_Logic_Service {
         }
     }
 
-
     public boolean validate_R5(int id_solicitud_Credito, int valor_propiedad){
         Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
         Tipo_Prestamo_Entity prestamo = tipo_prestamo_repository.findById(solicitud.getId_Tipo_Prestamo()).get();
@@ -292,6 +291,7 @@ public class Business_Logic_Service {
         }
     }
 
+
     public boolean validate_R74(int id_solicitud_Credito, int antiguedad_cliente, int saldo_cuenta){
 
         Solicitud_Credito_Entity solicitud = solicitud_credito_repository.findById(id_solicitud_Credito);
@@ -416,4 +416,5 @@ public class Business_Logic_Service {
 
         return respuesta;
     }
+
 }

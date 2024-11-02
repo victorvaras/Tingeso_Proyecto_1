@@ -17,7 +17,7 @@ public class Seguimiento_Solicitud_Controller {
     private Seguimiento_Solicitud_Service seguimiento_Solicitud_Service;
 
     @GetMapping("{id}")
-    private ResponseEntity<Seguimiento_Solicitud_Entity> obtenerSeguimiento_Solicitud(@PathVariable int id) {
+    public ResponseEntity<Seguimiento_Solicitud_Entity> obtenerSeguimiento_Solicitud(@PathVariable int id) {
         Seguimiento_Solicitud_Entity seguimieto = seguimiento_Solicitud_Service.getSeguimiento_Solicitud(id);
         return ResponseEntity.ok(seguimieto);
     }

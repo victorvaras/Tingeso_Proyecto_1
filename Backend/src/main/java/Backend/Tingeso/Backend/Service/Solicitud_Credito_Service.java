@@ -1,13 +1,10 @@
 package Backend.Tingeso.Backend.Service;
 
 import Backend.Tingeso.Backend.Entity.Evaluacion_Credito_Entity;
-import Backend.Tingeso.Backend.Entity.Seguimiento_Solicitud_Entity;
 import Backend.Tingeso.Backend.Entity.Solicitud_Credito_Entity;
-import Backend.Tingeso.Backend.Repository.Evaluacion_Credito_Repository;
 import Backend.Tingeso.Backend.Repository.Solicitud_Credito_Repository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
