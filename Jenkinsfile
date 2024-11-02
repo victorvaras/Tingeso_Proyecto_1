@@ -32,7 +32,7 @@ pipeline {
         }
         stage("Build and Push Docker Image") {
             steps {
-                dir("gestion-estudiantes-backend") {
+                dir("Backend") {
                     script {
                         withDockerRegistry(credentialsId: 'docker-credentials') {
                             bat "docker build -t polloh/gestion-estudiantes-backend ."
@@ -52,8 +52,6 @@ pipeline {
                     script {
                         docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
                         bat "docker build -t victorvaraspro/tingeso-frontend:latest ."
-                        bat "docker login -u victorvaraspro"
-                        bat DOCKER_CREDENTIALS_ID
                         bat "docker push victorvaraspro/tingeso-frontend:latest"
                         }
                     }
