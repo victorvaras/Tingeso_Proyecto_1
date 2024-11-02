@@ -30,7 +30,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage("Build Frontend and push docker image") {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/victorvaras/Tingeso_Proyecto_1.git']])
