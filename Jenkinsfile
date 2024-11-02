@@ -30,19 +30,7 @@ pipeline {
                 }
             }
         }
-        stage("Build and Push Docker Image") {
-            steps {
-                dir("Backend") {
-                    script {
-                        withDockerRegistry(credentialsId: 'docker-credentials') {
-                            bat "docker build -t polloh/gestion-estudiantes-backend ."
-                            bat "docker push polloh/gestion-estudiantes-backend"
-                        }
-                    }
-                }
-            }
-        }
-
+        
         stage("Build Frontend and push docker image") {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/victorvaras/Tingeso_Proyecto_1.git']])
