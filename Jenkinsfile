@@ -52,6 +52,7 @@ pipeline {
                     script {
                         docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
                         bat "docker build -t victorvaraspro/tingeso-frontend:latest ."
+                        bat "docker login"
                         bat "docker push victorvaraspro/tingeso-frontend:latest"
                         }
                     }
