@@ -13,41 +13,52 @@ services:
       - "5432:5432"
     networks:
       - backend-network
+    volumes:
+      - ./data:/var/lib/postgresql/data
 
 
   # Frontend services
   frontend1:
-    image: victorvaraspro/tingeso-frontend
+    image: victorvaraspro/tingeso-frontend:latest
+    environment:
+      VITE_PAYROLL_BACKEND_SERVER: 191.232.32.178
     networks:
       - frontend-network
+      - backend-network
 
   frontend2:
-    image: victorvaraspro/tingeso-frontend
+    image: victorvaraspro/tingeso-frontend:latest
+    environment:
+      VITE_PAYROLL_BACKEND_SERVER: 191.232.32.178
     networks:
       - frontend-network
+      - backend-network
 
   frontend3:
-    image: victorvaraspro/tingeso-frontend
+    image: victorvaraspro/tingeso-frontend:latest
+    environment:
+      VITE_PAYROLL_BACKEND_SERVER: 191.232.32.178
     networks:
       - frontend-network
+      - backend-network
 
   # Backend services
   backend1:
-    image: victorvaraspro/tingeso-backend
+    image: victorvaraspro/tingeso-backend:latest
     environment:
       - DB_HOST=postgres_container
     networks:
       - backend-network
 
   backend2:
-    image: victorvaraspro/tingeso-backend
+    image: victorvaraspro/tingeso-backend:latest
     environment:
       - DB_HOST=postgres_container
     networks:
       - backend-network
 
   backend3:
-    image: victorvaraspro/tingeso-backend
+    image: victorvaraspro/tingeso-backend:latest
     environment:
       - DB_HOST=postgres_container
     networks:
@@ -84,3 +95,6 @@ services:
 networks:
   frontend-network:
   backend-network:
+
+volumes:
+  pgdata:

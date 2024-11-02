@@ -18,6 +18,7 @@ public class Tipo_Prestamo_Controller {
     @GetMapping("{id}")
     public ResponseEntity<Tipo_Prestamo_Entity> getTipoPrestamoById(@PathVariable int id) {
         Tipo_Prestamo_Entity tipo = tipo_prestamo_service.getTipo_prestamo(id);
+        System.out.println("prueba");
         return ResponseEntity.ok(tipo);
     }
 
