@@ -1,0 +1,17 @@
+para realziar cambios en azure
+
+-Realizar cambio
+-subir a git
+	git add --all
+	git commit -m ""
+	git push
+
+-ejecutar jenkins
+	http://localhost:8080/
+
+-Ejecutar compose en servidor
+	ssh victorvaraspro@191.232.32.178
+	docker compose down
+	docker compose up --pull always -d
+
+docker image (se ve la fecha de imagen usada)
