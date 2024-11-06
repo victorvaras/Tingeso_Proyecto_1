@@ -21,7 +21,7 @@ const BarraSuperior = () => {
             textAlign: "center",
             fontSize: "10px"
         }}>
-            <h1>PrestaBanco Oficial</h1>
+            <h1>PrestaBanco</h1>
 
             <button onClick={handleInicio} style={{ margin: "10px", padding: "5px 10px", fontSize: "10px" }}>
                 Inicio
