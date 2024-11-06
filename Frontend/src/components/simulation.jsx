@@ -110,7 +110,7 @@ const Simulation = () => {
                     </select>
                 </div>
 
-                <button type="submit">Simular</button>
+                <button type="submit">Simular credito (Chile)</button>
             </form>
 
             {cuota !== null && ( // Mostrar el valor de la cuota si existe
